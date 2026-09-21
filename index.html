@@ -55,10 +55,6 @@
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap"
     }).addTo(map);
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-      attribution: "&copy; OpenStreetMap &copy; CARTO",
-      maxZoom: 19
-    }).addTo(map);
 
     const cluster = L.markerClusterGroup({ showCoverageOnHover: false });
     const levelLayers = {
@@ -98,7 +94,7 @@
             fillOpacity: 0.9
           });
           marker.bindPopup(popupHtml(s), { maxWidth: 320 });
-          marker.bindTooltip(`${s.name} · ${s.level} · ${s.grades}`);
+          marker.bindTooltip(s.name + " · " + s.level + " · " + s.grades);
           cluster.addLayer(marker);
           if (levelLayers[s.level]) levelLayers[s.level].addLayer(marker);
         });
@@ -113,9 +109,7 @@
       })
       .catch(err => {
         document.body.insertAdjacentHTML("beforeend",
-          `<div style="position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#fee;padding:12px 20px;border-radius:8px;z-index:2000;">
-            Could not load schools.json — ${err.message}
-          </div>`);
+          '<div style="position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#fee;padding:12px 20px;border-radius:8px;z-index:2000;">Could not load schools.json — ' + err.message + '</div>');
       });
   </script>
 </body>
